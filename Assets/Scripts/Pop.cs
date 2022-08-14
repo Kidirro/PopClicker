@@ -86,7 +86,7 @@ public class Pop : MonoBehaviour
     public void CollectPop()
     {
         _lastTimeClick = DateTime.Now;
+        FartTransaction.Instance.SetTransaction(this.transform.position);
         UpdateTimer();
-
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(RectTransform))]
 public class Jar : MonoBehaviour
-{ 
+{
 
     [Header("Properties"), SerializeField]
     private Image _bgImage;
@@ -58,8 +58,11 @@ public class Jar : MonoBehaviour
     {
         for (int i = 0; i < DataManager.Instance.CountCollectedPop; i++)
         {
+            FartTransaction.Instance.SetTransaction(_rectTransform.position, new Vector2( _rectTransform.position.x, _rectTransform.position.y + Camera.main.ScreenToWorldPoint(new Vector2(0, 1500)).y), 1);
+
             float rand = Random.Range(0f, _soundTimeAwait);
             SoundManager.Instance.PlayClip(DataManager.Instance.GetPopValue(i));
+
             yield return new WaitForSeconds(rand);
         }
         DataManager.Instance.ClearPopValue();
