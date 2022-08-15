@@ -110,6 +110,17 @@ public class SoundManager : Singleton<SoundManager>
         _enableSource[_enableSource.Count - 1].loop = false;
     }
 
+    private void Start()
+    {
+        try
+        {
+            PlayClip("BG_Music");
+        }
+        catch (Exception e)
+        {
+
+        }
+    }
 
     /// <summary>
     /// 
@@ -146,6 +157,7 @@ public class SoundManager : Singleton<SoundManager>
         audio.pitch = 0;
         audio.loop =false;
         _enableSource.Add(audio);
+        if (sound.Loop) PlayClip(sound.Name);
     }
 
 }

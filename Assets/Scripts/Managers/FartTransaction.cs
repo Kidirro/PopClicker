@@ -20,7 +20,7 @@ public class FartTransaction : Singleton<FartTransaction>
 
     private int _currentCoin = 0;
 
-    public void SetTransaction(Vector2 initial, Vector2 target, int id =0)
+    public void SetTransaction(Vector2 initial, Vector2 target, int id = 0)
     {
         _currentCoin++;
         if (_coinList.Count < _currentCoin)
@@ -32,10 +32,10 @@ public class FartTransaction : Singleton<FartTransaction>
         _coinList[_currentCoin - 1].transform.SetParent(_parentTransform[id]);
         _coinList[_currentCoin - 1].transform.localScale = Vector3.one;
         _coinList[_currentCoin - 1].transform.position = Vector3.zero;
-        StartCoroutine(IETransaction(_coinList[_currentCoin - 1], initial,  target));
+        StartCoroutine(IETransaction(_coinList[_currentCoin - 1], initial,  target, false));
     } 
     
-    public void SetTransaction(Vector2 initial, int id =0)
+    public void SetTransactionToJar(Vector2 initial,Vector2 initialSize,Vector2 targetSize, int id =0, bool isNeedUpdate = false)
     {
         _currentCoin++;
         if (_coinList.Count < _currentCoin)
@@ -47,15 +47,24 @@ public class FartTransaction : Singleton<FartTransaction>
         _coinList[_currentCoin - 1].transform.SetParent(_parentTransform[id]);
         _coinList[_currentCoin - 1].transform.localScale = Vector3.one;
         _coinList[_currentCoin - 1].transform.position = Vector3.zero;
-        StartCoroutine(IETransaction(_coinList[_currentCoin - 1], initial, _coinGoal.transform.position));
+        StartCoroutine(IETransaction(_coinList[_currentCoin - 1], initial, _coinGoal.transform.position, isNeedUpdate));
+        StartCoroutine(IEScale(_coinList[_currentCoin - 1], initialSize, targetSize));
     }  
 
-    private IEnumerator IETransaction(GameObject coin, Vector2 initial, Vector2 target)
+    private IEnumerator IETransaction(GameObject coin, Vector2 initial, Vector2 target, bool isNeedUpdate)
     {
         coin.SetActive(true);
         StartCoroutine(coin.transform.SetPositionWithLerp(initial, target, _duration));
         yield return new WaitForSeconds(_duration);
         coin.SetActive(false);
         _currentCoin -= 1;
+        if (isNeedUpdate) Jar.Instance.UpdateText();
+    }   
+    
+    private IEnumerator IEScale(GameObject coin, Vector2 initial, Vector2 target)
+    {
+        coin.SetActive(true);
+        StartCoroutine(coin.transform.ScaleWithLerp(initial, target, _duration));
+        yield return new WaitForSeconds(_duration);
     }
 }

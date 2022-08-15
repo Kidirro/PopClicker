@@ -351,7 +351,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.64
+  m_FillAmount: 0.353
   m_FillClockwise: 1
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
@@ -488,12 +488,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 720, y: 1280}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.55
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -508,8 +508,8 @@ Canvas:
   m_GameObject: {fileID: 1294153973}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 371602198}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -664,7 +664,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf1e0a0a4513e1a40939ef0b065217e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 10.5
+  _duration: 10
+  _loadingBar: {fileID: 1123350250}
 --- !u!1 &1518961511
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,7 +698,7 @@ MonoBehaviour:
   _sounds:
   - name: FartLoading
     clip: {fileID: 8300000, guid: ceae374faca66584a94a185f5b37f650, type: 3}
-    volume: 1
+    volume: 0.2
     pitch: 1
     loop: 0
   _enableSource: []

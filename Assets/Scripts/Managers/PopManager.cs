@@ -9,10 +9,25 @@ public class PopManager : Singleton<PopManager>
 
     public float CooldownTime;
 
-    public int UnlockPrice;
+    public int UnlockPrice
+    {
+        get
+        {
+            int res = 0;
+            foreach (Pop pop in _popsList) res += (pop.IsPopUnlock) ? _unlockPricePoop:0;
+
+            return _unlockPriceDefault + res;
+        }
+    }
 
 
-    private void Start()
+    [SerializeField]
+    private int _unlockPriceDefault;
+    [SerializeField]
+    private int _unlockPricePoop;
+
+
+    private void Awake()
     {
         InitPops();
     }
@@ -27,14 +42,17 @@ public class PopManager : Singleton<PopManager>
     
     public void CollectAllPop()
     {
+        int count = 0;
         foreach (Pop pop in _popsList)
         {
             if (pop.IsPopReady && pop.IsPopUnlock)
             {
                 pop.CollectPop();
+                count += 1;
                 DataManager.Instance.SetPopValue(pop.Sound);
             }
         }
+        StartCoroutine(IPlayCollectSound(count));
         DataManager.Instance.ShowPopData();
     }
 
@@ -47,5 +65,19 @@ public class PopManager : Singleton<PopManager>
         return false;
     }
 
-   
+    private IEnumerator IPlayCollectSound(int count)
+    {
+        for (int i =0; i < count; i++)
+        {
+
+            SoundManager.Instance.PlayClip("Collect");
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+
+    public void UpdateTexts()
+    {
+        foreach (Pop pop in _popsList) pop.UpdateTextValue();
+    }
 }

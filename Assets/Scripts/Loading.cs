@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Loading : MonoBehaviour
 {
     [SerializeField]
-    private float _duration; 
-    
+    private float _duration;
+
+    [SerializeField]
+    private Image _loadingBar;
+
     public static AsyncOperation asyncOperation = null;
 
     private void Start()
@@ -20,7 +24,15 @@ public class Loading : MonoBehaviour
         SoundManager.Instance.PlayClip("FartLoading");
        asyncOperation= SceneManager.LoadSceneAsync(1);
         asyncOperation.allowSceneActivation = false;
-        yield return new WaitForSeconds(_duration);
+
+        float time = 0;
+        while (time < _duration)
+        {
+            time += 0.1f;
+            _loadingBar.fillAmount = time / _duration;
+            yield return new WaitForSeconds(0.1f);
+        }
+
         asyncOperation.allowSceneActivation = true;
     }
 }

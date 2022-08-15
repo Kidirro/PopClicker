@@ -67,6 +67,19 @@ public static class TransformExtensions
         }
     }
 
+    public static IEnumerator SetScaleWithLerpRect(this RectTransform transform, Vector3 initial, Vector3 final, float duration)
+    {
+        float percentage = 0;
+        float timeElapsed = 0;
+        while (timeElapsed < duration)
+        {
+            timeElapsed += Time.deltaTime;
+            percentage = timeElapsed / duration;
+            transform.localScale = Vector3.Lerp(initial, final, percentage);
+            yield return null;
+        }
+    }
+
     public static IEnumerator SetPositionWithLerpRect(this RectTransform transform, Vector3 initial, Vector3 final, float duration)
     {
         float percentage = 0;
